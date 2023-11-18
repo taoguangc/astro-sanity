@@ -1,8 +1,10 @@
 ---
+import Layout from '@/layouts/Layout.astro'
 import { sanityClient } from "sanity:client"
+import { type Posts } from '@/types/Posts'
 
 export async function getStaticPaths() {
-  const posts = await sanityClient.fetch(`*[_type == "post" && defined(slug)]`);
+  const posts: Posts = await sanityClient.fetch(`*[_type == "post" && defined(slug)]`);
 
   return posts.map((post) => {
     return {
@@ -12,7 +14,7 @@ export async function getStaticPaths() {
   });
 }
 
-const { title, body } = Astro.props;
+const { title, content } = Astro.props;
 ---
 
-<h1>{title}</h1>
+<Layout><h1>{title}</h1></Layout>

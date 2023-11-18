@@ -1,23 +1,17 @@
 ---
+import Layout from '@/layouts/Layout.astro'
 import { sanityClient } from "sanity:client";
 import { type Post } from '@/types/Post'
 const posts = await sanityClient.fetch(`*[_type == "post" && defined(slug)]`);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
+<Layout>
+	<section class="min-h-screen mx-auto container p-8">
 		<h1>My blog</h1>
 		{posts && <ul>
 			{posts.map((post: Post) => (
 				<li><a href={'/post/' + post?.slug.current}>{post?.title}</a></li>
 			))}
 		</ul>}
-	</body>
-</html>
+	</section>
+</Layout>
