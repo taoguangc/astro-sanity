@@ -1,5 +1,7 @@
 ---
+import { sanityClient } from "sanity:client";
 
+const posts = await sanityClient.fetch(`*[_type == "post" && defined(slug)]`);
 ---
 
 <html lang="en">
@@ -11,6 +13,11 @@
 		<title>Astro</title>
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<h1>My blog</h1>
+		{posts && <ul>
+			{posts.map((post) => (
+				<li><a href={'/post/' + post.slug.current}>{post.title}</a></li>
+			))}
+		</ul>}
 	</body>
 </html>
