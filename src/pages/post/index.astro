@@ -1,13 +1,13 @@
 ---
 import { sanityClient } from "sanity:client";
-import { type Post } from '@/types/Post'
+import { type Posts } from '@/types/Posts'
 
-const posts = await sanityClient.fetch(`*[_type == "post" && defined(slug)] | order(publishedAt desc)`);
+const posts: Posts = await sanityClient.fetch(`*[_type == "post" && defined(slug)] | order(publishedAt desc)`);
 ---
 
 <h1>Blog</h1>
 <ul>
-  {posts.map((post: Post) => (
+  {posts.map((post) => (
     <li>
       <a href={'/posts/' + post?.slug.current} class="post-link">
         {post?.title}
